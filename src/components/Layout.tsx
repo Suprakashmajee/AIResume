@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useState } from 'react'
 
+const SUPPORT_EMAIL = 'support@airesumedraft.com'
+
 export function Layout() {
   const [open, setOpen] = useState(false)
 
@@ -66,13 +68,14 @@ export function Layout() {
           <div>
             <h4>Support</h4>
             <a href="#faq">FAQ</a>
-            <a href="mailto:support@airesumedraft.com">support@airesumedraft.com</a>
+            <NavLink to="/contact">Contact</NavLink>
+            <p className="footer-email">{SUPPORT_EMAIL}</p>
           </div>
         </div>
         <div className="container footer-bottom">
           <span>
-            © {new Date().getFullYear()} AiResumeDraft. Need help?{' '}
-            <a href="mailto:support@airesumedraft.com">support@airesumedraft.com</a>
+            © {new Date().getFullYear()} AiResumeDraft. Support:{' '}
+            <span className="footer-email-inline">{SUPPORT_EMAIL}</span>
           </span>
         </div>
       </footer>

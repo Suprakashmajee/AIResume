@@ -514,6 +514,6 @@ export const faqs = [
   },
   {
     q: 'How do I contact support?',
-    a: 'Email us anytime at support@airesumedraft.com for help with the builder, templates, exports, or account questions. We aim to reply as quickly as possible.',
+    a: 'Visit the Contact page on this website to see our support email: support@airesumedraft.com. You can copy the address from there without opening Outlook or another mail app.',
   },
 ]
