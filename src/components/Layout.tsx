@@ -66,11 +66,14 @@ export function Layout() {
           <div>
             <h4>Support</h4>
             <a href="#faq">FAQ</a>
-            <a href="mailto:hello@airesumedraft.com">Contact</a>
+            <a href="mailto:support@airesumedraft.com">support@airesumedraft.com</a>
           </div>
         </div>
         <div className="container footer-bottom">
-          <span>© {new Date().getFullYear()} AiResumeDraft. Built for job seekers.</span>
+          <span>
+            © {new Date().getFullYear()} AiResumeDraft. Need help?{' '}
+            <a href="mailto:support@airesumedraft.com">support@airesumedraft.com</a>
+          </span>
         </div>
       </footer>
     </div>

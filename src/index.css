@@ -721,6 +721,12 @@ main {
   border-top: 1px solid var(--line);
 }
 
+.footer-bottom a {
+  display: inline;
+  color: var(--teal);
+  font-weight: 700;
+}
+
 /* Builder */
 .builder-page {
   width: min(1240px, calc(100% - 2rem));

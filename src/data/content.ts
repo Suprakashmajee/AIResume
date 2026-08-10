@@ -512,4 +512,8 @@ export const faqs = [
     q: 'Is my information secure?',
     a: 'Your resume data is stored locally in your browser for this session. We do not sell personal data. Clear your browser storage if you are on a shared device.',
   },
+  {
+    q: 'How do I contact support?',
+    a: 'Email us anytime at support@airesumedraft.com for help with the builder, templates, exports, or account questions. We aim to reply as quickly as possible.',
+  },
 ]
