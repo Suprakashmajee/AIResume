@@ -56,3 +56,10 @@ Environment variables:
 4. Set custom domain `airesumedraft.com` in Pages settings and enable HTTPS
 
 Built artifact branch: [`gh-pages`](https://github.com/Suprakashmajee/AIResume/tree/gh-pages)
+
+## Agent deploy status
+
+Automated publish to the custom domain is **blocked**: Hostinger credentials were not provided, and GitHub Pages is not enabled on the repository. The production build remains available on the `gh-pages` branch (`site.zip`).
+
+Once Hostinger website/SSL returns 200 for HTTPS and you can access File Manager, extract `site.zip` into `public_html`, or re-run this agent with Hostinger FTP/hPanel secrets.
+
