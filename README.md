@@ -38,3 +38,9 @@ npm run preview
 2. Push to `main` (or run the Deploy workflow)
 3. Set custom domain to `airesumedraft.com`
 4. Point Hostinger DNS A records to GitHub Pages IPs and `www` CNAME to `Suprakashmajee.github.io`
+
+## Deploy
+
+See **[DEPLOY.md](./DEPLOY.md)** for publishing to **airesumedraft.com** (Hostinger, FTP, or GitHub Pages).
+
+Quick Hostinger zip: https://github.com/Suprakashmajee/AIResume/raw/gh-pages/site.zip
