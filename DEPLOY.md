@@ -2,11 +2,14 @@
 
 The app build is ready on GitHub. Publishing to **https://airesumedraft.com** requires Hostinger access (this agent cannot change your hosting without login/FTP).
 
-## Current blockers (verified)
+## Current blockers (verified again)
 
-- `https://airesumedraft.com` — TLS handshake error (SSL not ready / misconfigured)
-- `http://airesumedraft.com` and `https://www.airesumedraft.com` — **403 Forbidden** from Hostinger
+- `https://airesumedraft.com` and `https://www.airesumedraft.com` — TLS handshake error (`tlsv1 alert internal error`)
+- `http://airesumedraft.com` — **403 Forbidden** from Hostinger LiteSpeed
+- Site files are not live (`/ads.txt`, `/assets`, AiResumeDraft HTML missing)
 - GitHub Pages is **not enabled**, so Actions cannot publish either
+
+Until Hostinger website + SSL are healthy and `site.zip` is extracted into `public_html`, the custom domain cannot go live.
 
 ## Option A — Hostinger File Manager (recommended)
 
