@@ -874,10 +874,22 @@ main {
   background: var(--teal);
 }
 
-.google-btn-host {
-  min-height: 44px;
+.auth-form {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 420px;
   margin-top: 0.75rem;
 }
+
+.auth-submit {
+  justify-self: start;
+  margin-top: 0.25rem;
+}
+
+.auth-panel-secondary {
+  margin-top: 2rem;
+}
+
 
 .auth-setup-note {
   margin-top: 0.75rem;

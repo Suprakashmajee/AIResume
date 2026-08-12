@@ -518,6 +518,6 @@ export const faqs = [
   },
   {
     q: 'How do I log in or log out?',
-    a: 'Click Log in in the header and choose Continue with Google (Gmail). When you are signed in, your name appears in the header with a Log out button. Logging out clears the Google session on this site.',
+    a: 'Click Log in in the header. You can sign in with your name and email right away, or use Continue with Google when Google sign-in is configured. When you are signed in, your name appears in the header with a Log out button.',
   },
 ]

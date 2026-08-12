@@ -23,6 +23,7 @@ interface AuthContextValue {
   loginError: string
   clearLoginError: () => void
   logout: () => void
+  loginWithEmail: (name: string, email: string) => boolean
   setUserFromGoogleCredential: (credential: string) => boolean
 }
 
@@ -68,6 +69,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return true
   }, [])
 
+  const loginWithEmail = useCallback((name: string, email: string) => {
+    const cleanEmail = email.trim().toLowerCase()
+    const cleanName = name.trim()
+    if (!cleanName) {
+      setLoginError('Please enter your name.')
+      return false
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+      setLoginError('Please enter a valid email address.')
+      return false
+    }
+    const next: AuthUser = {
+      id: `email:${cleanEmail}`,
+      name: cleanName,
+      email: cleanEmail,
+      picture: '',
+      provider: 'email',
+    }
+    setUser(next)
+    saveStoredUser(next)
+    setLoginError('')
+    return true
+  }, [])
+
   const logout = useCallback(() => {
     const email = user?.email
     setUser(null)
@@ -93,6 +118,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loginError,
       clearLoginError,
       logout,
+      loginWithEmail,
       setUserFromGoogleCredential,
     }),
     [
@@ -102,6 +128,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loginError,
       clearLoginError,
       logout,
+      loginWithEmail,
       setUserFromGoogleCredential,
     ],
   )

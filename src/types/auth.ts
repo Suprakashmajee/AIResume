@@ -3,7 +3,7 @@ export interface AuthUser {
   name: string
   email: string
   picture: string
-  provider: 'google'
+  provider: 'google' | 'email'
 }
 
 export interface GoogleCredentialResponse {
