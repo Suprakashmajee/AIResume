@@ -892,6 +892,26 @@ main {
   font-size: 0.9em;
 }
 
+.auth-setup-note p {
+  margin: 0 0 0.75rem;
+}
+
+.auth-setup-note p:last-child {
+  margin-bottom: 0;
+}
+
+.auth-setup-steps {
+  margin: 0 0 0.85rem;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.auth-setup-steps a {
+  color: var(--teal);
+  font-weight: 700;
+}
+
 @media (max-width: 760px) {
   .auth-nav {
     flex-direction: column;

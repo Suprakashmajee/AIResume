@@ -40,10 +40,33 @@ export function GoogleSignInButton({ onSuccess }: Props) {
 
   if (!googleConfigured) {
     return (
-      <p className="auth-setup-note">
-        Google sign-in is not configured yet. Add your Google OAuth Client ID as{' '}
-        <code>VITE_GOOGLE_CLIENT_ID</code> and rebuild the site.
-      </p>
+      <div className="auth-setup-note">
+        <p>
+          <strong>Google sign-in is almost ready.</strong> Add your Google OAuth Web Client ID, then
+          rebuild the site.
+        </p>
+        <ol className="auth-setup-steps">
+          <li>
+            Open{' '}
+            <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer">
+              Google Cloud Credentials
+            </a>
+          </li>
+          <li>Create an OAuth client ID (Web application)</li>
+          <li>
+            Add authorized JavaScript origins: <code>https://airesumedraft.com</code> and{' '}
+            <code>https://www.airesumedraft.com</code>
+          </li>
+          <li>
+            Put the Client ID in <code>.env</code> as <code>VITE_GOOGLE_CLIENT_ID</code>, run{' '}
+            <code>npm run build</code>, and upload <code>dist/</code>
+          </li>
+        </ol>
+        <p>
+          The Client ID looks like <code>123….apps.googleusercontent.com</code>. Until it is set,
+          Log in / Log out UI works, but Continue with Google stays disabled.
+        </p>
+      </div>
     )
   }
 
