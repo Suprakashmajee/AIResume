@@ -771,6 +771,138 @@ main {
   max-width: 34rem;
 }
 
+.auth-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.auth-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 180px;
+}
+
+.auth-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--mist);
+}
+
+.auth-avatar-fallback {
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: var(--teal);
+  background: rgba(13, 115, 119, 0.12);
+}
+
+.auth-user-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-login,
+.auth-logout {
+  white-space: nowrap;
+}
+
+.footer-text-btn {
+  display: block;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.auth-page .auth-panel {
+  margin-top: 0.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.auth-panel h2 {
+  font-size: 1.35rem;
+}
+
+.auth-copy {
+  color: var(--muted);
+  max-width: 34rem;
+}
+
+.auth-error {
+  color: #9b2c2c;
+  background: rgba(228, 87, 46, 0.08);
+  border: 1px solid rgba(228, 87, 46, 0.25);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+
+.auth-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 1.4rem 0 0;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.auth-benefits li {
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.auth-benefits li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--teal);
+}
+
+.google-btn-host {
+  min-height: 44px;
+  margin-top: 0.75rem;
+}
+
+.auth-setup-note {
+  margin-top: 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px dashed rgba(13, 115, 119, 0.35);
+  border-radius: 12px;
+  background: rgba(13, 115, 119, 0.04);
+  color: var(--ink-soft);
+}
+
+.auth-setup-note code {
+  font-size: 0.9em;
+}
+
+@media (max-width: 760px) {
+  .auth-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .auth-user {
+    max-width: none;
+  }
+}
+
 /* Builder */
 .builder-page {
   width: min(1240px, calc(100% - 2rem));

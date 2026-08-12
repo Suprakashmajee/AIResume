@@ -1,10 +1,19 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 const SUPPORT_EMAIL = 'support@airesumedraft.com'
 
 export function Layout() {
   const [open, setOpen] = useState(false)
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    setOpen(false)
+    navigate('/')
+  }
 
   return (
     <div className="site">
@@ -36,6 +45,29 @@ export function Layout() {
             <NavLink to="/builder" onClick={() => setOpen(false)}>
               Builder
             </NavLink>
+
+            {user ? (
+              <div className="auth-nav">
+                <div className="auth-user">
+                  {user.picture ? (
+                    <img src={user.picture} alt="" className="auth-avatar" referrerPolicy="no-referrer" />
+                  ) : (
+                    <span className="auth-avatar auth-avatar-fallback" aria-hidden>
+                      {user.name.slice(0, 1).toUpperCase()}
+                    </span>
+                  )}
+                  <span className="auth-user-name">{user.name}</span>
+                </div>
+                <button type="button" className="btn btn-ghost auth-logout" onClick={handleLogout}>
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <NavLink to="/login" className="btn btn-secondary auth-login" onClick={() => setOpen(false)}>
+                Log in
+              </NavLink>
+            )}
+
             <NavLink to="/builder" className="btn btn-primary nav-cta" onClick={() => setOpen(false)}>
               Create My Resume
             </NavLink>
@@ -64,6 +96,13 @@ export function Layout() {
             <NavLink to="/builder">Resume Builder</NavLink>
             <NavLink to="/templates">Templates</NavLink>
             <NavLink to="/examples">Resume Examples</NavLink>
+            {user ? (
+              <button type="button" className="footer-text-btn" onClick={handleLogout}>
+                Log out
+              </button>
+            ) : (
+              <NavLink to="/login">Log in</NavLink>
+            )}
           </div>
           <div>
             <h4>Support</h4>
