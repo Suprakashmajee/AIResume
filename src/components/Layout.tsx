@@ -106,9 +106,15 @@ export function Layout() {
           </div>
           <div>
             <h4>Support</h4>
-            <a href="#faq">FAQ</a>
+            <NavLink to="/guide">Resume Guide</NavLink>
             <NavLink to="/contact">Contact</NavLink>
             <p className="footer-email">{SUPPORT_EMAIL}</p>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/privacy">Privacy Policy</NavLink>
+            <NavLink to="/terms">Terms of Service</NavLink>
           </div>
         </div>
         <div className="container footer-bottom">
@@ -116,6 +122,11 @@ export function Layout() {
             © {new Date().getFullYear()} AiResumeDraft. Support:{' '}
             <span className="footer-email-inline">{SUPPORT_EMAIL}</span>
           </span>
+          <nav className="footer-legal-links" aria-label="Legal">
+            <NavLink to="/privacy">Privacy</NavLink>
+            <NavLink to="/terms">Terms</NavLink>
+            <NavLink to="/about">About</NavLink>
+          </nav>
         </div>
       </footer>
     </div>
