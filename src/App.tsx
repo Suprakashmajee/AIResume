@@ -12,6 +12,7 @@ import { GuidePage } from './pages/GuidePage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { PrivacyPage } from './pages/PrivacyPage'
+import { ProfilePage } from './pages/ProfilePage'
 import { TemplatesPage } from './pages/TemplatesPage'
 import { TermsPage } from './pages/TermsPage'
 
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="terms" element={<TermsPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="login" element={<LoginPage />} />
+              <Route path="profile" element={<ProfilePage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

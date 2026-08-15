@@ -10,9 +10,10 @@ export function Layout() {
   const navigate = useNavigate()
 
   function handleLogout() {
-    logout()
-    setOpen(false)
-    navigate('/')
+    void logout().then(() => {
+      setOpen(false)
+      navigate('/')
+    })
   }
 
   return (
@@ -51,7 +52,7 @@ export function Layout() {
 
             {user ? (
               <div className="auth-nav">
-                <div className="auth-user">
+                <NavLink to="/profile" className="auth-user" onClick={() => setOpen(false)}>
                   {user.picture ? (
                     <img src={user.picture} alt="" className="auth-avatar" referrerPolicy="no-referrer" />
                   ) : (
@@ -60,13 +61,16 @@ export function Layout() {
                     </span>
                   )}
                   <span className="auth-user-name">{user.name}</span>
-                </div>
+                </NavLink>
+                <NavLink to="/profile" className="btn btn-profile" onClick={() => setOpen(false)}>
+                  Profile
+                </NavLink>
                 <button type="button" className="btn btn-ghost auth-logout" onClick={handleLogout}>
                   Log out
                 </button>
               </div>
             ) : (
-              <NavLink to="/login" className="btn btn-secondary auth-login" onClick={() => setOpen(false)}>
+              <NavLink to="/login" className="btn btn-login auth-login" onClick={() => setOpen(false)}>
                 Log in
               </NavLink>
             )}
@@ -100,9 +104,12 @@ export function Layout() {
             <NavLink to="/templates">Templates</NavLink>
             <NavLink to="/examples">Resume Examples</NavLink>
             {user ? (
-              <button type="button" className="footer-text-btn" onClick={handleLogout}>
-                Log out
-              </button>
+              <>
+                <NavLink to="/profile">Profile</NavLink>
+                <button type="button" className="footer-text-btn" onClick={handleLogout}>
+                  Log out
+                </button>
+              </>
             ) : (
               <NavLink to="/login">Log in</NavLink>
             )}

@@ -21,8 +21,10 @@ export function GoogleSignInButton({ onSuccess }: Props) {
     window.google.accounts.id.initialize({
       client_id: clientId,
       callback: (response) => {
-        const ok = setUserFromGoogleCredential(response.credential)
-        if (ok) onSuccess?.()
+        void (async () => {
+          const ok = await setUserFromGoogleCredential(response.credential)
+          if (ok) onSuccess?.()
+        })()
       },
       auto_select: false,
       cancel_on_tap_outside: true,
