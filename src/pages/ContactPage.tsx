@@ -1,46 +1,42 @@
-import { useState } from 'react'
-
-const SUPPORT_EMAIL = 'support@airesumedraft.com'
+import { PageIntro } from '../components/FAQ'
+import { AdSlot } from '../components/AdSlot'
+import { siteDomain, siteName } from '../data/content'
 
 export function ContactPage() {
-  const [copied, setCopied] = useState(false)
-
-  async function copyEmail() {
-    try {
-      await navigator.clipboard.writeText(SUPPORT_EMAIL)
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 2000)
-    } catch {
-      setCopied(false)
-    }
-  }
-
   return (
-    <section className="section page-top contact-page">
-      <div className="container narrow">
-        <div className="section-head">
-          <p className="eyebrow">Support</p>
-          <h1>Contact AiResumeDraft</h1>
-          <p className="lede">
-            For help with the builder, templates, exports, or anything else, reach us at the support
-            email below.
+    <div className="page">
+      <PageIntro
+        eyebrow="Contact"
+        title="Contact Bill Store"
+        lede="Have a question about the invoice generator, privacy, or advertising? Send a note and we will do our best to help."
+      />
+      <div className="container contact-layout">
+        <AdSlot className="ad-page" label="Sponsored" />
+        <div className="prose-block">
+          <h2>Reach us</h2>
+          <p>
+            Email:{' '}
+            <a href={`mailto:hello@${siteDomain}`}>hello@{siteDomain}</a>
           </p>
-        </div>
-
-        <div className="contact-panel">
-          <p className="contact-label">Support email</p>
-          <p className="contact-email" aria-label="Support email address">
-            {SUPPORT_EMAIL}
+          <p>
+            Website: <a href={`https://${siteDomain}`}>https://{siteDomain}</a>
           </p>
-          <button type="button" className="btn btn-secondary" onClick={copyEmail}>
-            {copied ? 'Copied' : 'Copy email'}
-          </button>
-          <p className="contact-note">
-            You can select and copy the email address above. It will not open Outlook or another mail
-            app from this page.
+          <p>
+            For privacy requests, include “Privacy” in the subject line. For AdSense or partnership
+            inquiries, include “Advertising”.
+          </p>
+          <h2>Before you write</h2>
+          <ul>
+            <li>PDF tips and FAQs are on the home page.</li>
+            <li>Drafts save in your browser—try another device if you cannot find a saved bill.</li>
+            <li>We cannot recover invoices stored only on your local device.</li>
+          </ul>
+          <p className="muted-note">
+            {siteName} is an independent tool site. Response times may vary; please allow a few
+            business days.
           </p>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

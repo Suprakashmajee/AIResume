@@ -1,121 +1,87 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
+import { NavLink, Outlet } from 'react-router-dom'
+import { siteName } from '../data/content'
 
-const SUPPORT_EMAIL = 'support@airesumedraft.com'
+const nav = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/generator', label: 'Create Bill' },
+  { to: '/templates', label: 'Templates' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
+]
 
 export function Layout() {
-  const [open, setOpen] = useState(false)
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
-  function handleLogout() {
-    logout()
-    setOpen(false)
-    navigate('/')
-  }
-
   return (
     <div className="site">
-      <header className="nav">
-        <div className="nav-inner">
-          <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
-            <span className="brand-mark" aria-hidden />
-            <span className="brand-text">AiResumeDraft</span>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+      <header className="site-header">
+        <div className="container header-inner">
+          <NavLink to="/" className="logo" aria-label={`${siteName} home`}>
+            <span className="logo-mark" aria-hidden />
+            <span className="logo-text">
+              Bill<span>Store</span>
+            </span>
           </NavLink>
-
-          <button
-            className="nav-toggle"
-            type="button"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span />
-            <span />
-          </button>
-
-          <nav className={`nav-links ${open ? 'is-open' : ''}`}>
-            <NavLink to="/templates" onClick={() => setOpen(false)}>
-              Templates
-            </NavLink>
-            <NavLink to="/examples" onClick={() => setOpen(false)}>
-              Examples
-            </NavLink>
-            <NavLink to="/builder" onClick={() => setOpen(false)}>
-              Builder
-            </NavLink>
-
-            {user ? (
-              <div className="auth-nav">
-                <div className="auth-user">
-                  {user.picture ? (
-                    <img src={user.picture} alt="" className="auth-avatar" referrerPolicy="no-referrer" />
-                  ) : (
-                    <span className="auth-avatar auth-avatar-fallback" aria-hidden>
-                      {user.name.slice(0, 1).toUpperCase()}
-                    </span>
-                  )}
-                  <span className="auth-user-name">{user.name}</span>
-                </div>
-                <button type="button" className="btn btn-ghost auth-logout" onClick={handleLogout}>
-                  Log out
-                </button>
-              </div>
-            ) : (
-              <NavLink to="/login" className="btn btn-secondary auth-login" onClick={() => setOpen(false)}>
-                Log in
+          <nav className="site-nav" aria-label="Primary">
+            {nav.map((item) => (
+              <NavLink key={item.to} to={item.to} end={item.end} className={({ isActive }) => (isActive ? 'active' : undefined)}>
+                {item.label}
               </NavLink>
-            )}
-
-            <NavLink to="/builder" className="btn btn-primary nav-cta" onClick={() => setOpen(false)}>
-              Create My Resume
-            </NavLink>
+            ))}
           </nav>
+          <NavLink to="/generator" className="btn btn-primary header-cta">
+            Create free bill
+          </NavLink>
         </div>
       </header>
 
-      <main>
+      <main id="main">
         <Outlet />
       </main>
 
-      <footer className="footer">
+      <footer className="site-footer">
         <div className="container footer-grid">
           <div>
-            <div className="brand footer-brand">
-              <span className="brand-mark" aria-hidden />
-              <span className="brand-text">AiResumeDraft</span>
-            </div>
-            <p className="footer-copy">
-              Draft faster. Sound sharper. Export resumes that clear ATS screens and impress hiring
-              managers.
+            <p className="logo-text footer-brand">
+              Bill<span>Store</span>
+            </p>
+            <p className="footer-tag">
+              Free online bill & invoice generator for freelancers and small businesses. Create,
+              customize, and download professional PDFs in your browser.
             </p>
           </div>
           <div>
-            <h4>Product</h4>
-            <NavLink to="/builder">Resume Builder</NavLink>
-            <NavLink to="/templates">Templates</NavLink>
-            <NavLink to="/examples">Resume Examples</NavLink>
-            {user ? (
-              <button type="button" className="footer-text-btn" onClick={handleLogout}>
-                Log out
-              </button>
-            ) : (
-              <NavLink to="/login">Log in</NavLink>
-            )}
+            <h2 className="footer-heading">Product</h2>
+            <ul>
+              <li>
+                <NavLink to="/generator">Invoice generator</NavLink>
+              </li>
+              <li>
+                <NavLink to="/templates">Templates</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About Bill Store</NavLink>
+              </li>
+            </ul>
           </div>
           <div>
-            <h4>Support</h4>
-            <a href="#faq">FAQ</a>
-            <NavLink to="/contact">Contact</NavLink>
-            <p className="footer-email">{SUPPORT_EMAIL}</p>
+            <h2 className="footer-heading">Trust</h2>
+            <ul>
+              <li>
+                <NavLink to="/privacy">Privacy Policy</NavLink>
+              </li>
+              <li>
+                <NavLink to="/terms">Terms of Use</NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact">Contact</NavLink>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="container footer-bottom">
-          <span>
-            © {new Date().getFullYear()} AiResumeDraft. Support:{' '}
-            <span className="footer-email-inline">{SUPPORT_EMAIL}</span>
-          </span>
+          <p>© {new Date().getFullYear()} Bill Store (bill-store.com). All rights reserved.</p>
         </div>
       </footer>
     </div>

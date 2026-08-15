@@ -1,65 +1,68 @@
-# Deploy AiResumeDraft to airesumedraft.com
+# Deploy Bill Store to bill-store.com
 
-The app build is ready on GitHub. Publishing to **https://airesumedraft.com** requires Hostinger access (this agent cannot change your hosting without login/FTP).
+## Current status (agent cannot finish go-live alone)
 
-## Current blockers (verified again)
+| Item | Status |
+| --- | --- |
+| App build + `gh-pages` artifact | Ready (`site.zip`) |
+| DNS `bill-store.com` | Points to Hostinger `82.25.107.211` |
+| Live HTTP | `403 Forbidden` (no usable site files / website not serving) |
+| Live HTTPS | TLS failure — no certificate on the Hostinger vhost |
+| GitHub Pages | Not enabled on the repo |
+| Hostinger FTP secrets in Cloud Agent | Not provided (skipped) |
 
-- `https://airesumedraft.com` and `https://www.airesumedraft.com` — TLS handshake error (`tlsv1 alert internal error`)
-- `http://airesumedraft.com` — **403 Forbidden** from Hostinger LiteSpeed
-- Site files are not live (`/ads.txt`, `/assets`, AiResumeDraft HTML missing)
-- GitHub Pages is **not enabled**, so Actions cannot publish either
+Until Hostinger File Manager upload + SSL **or** GitHub Pages + DNS **or** FTP secrets are available, `https://bill-store.com` cannot show Bill Store.
 
-Until Hostinger website + SSL are healthy and `site.zip` is extracted into `public_html`, the custom domain cannot go live.
+Domain **bill-store.com** is on Hostinger (DNS A → `82.25.107.211`). The live site currently returns **403** until files are uploaded into the website document root and the Hostinger website + SSL are healthy.
+
+## Build artifact
+
+```bash
+npm ci
+npm run build
+cp dist/index.html dist/404.html
+```
+
+Upload **everything inside `dist/`** into Hostinger `public_html` for this domain (include `.htaccess` and `ads.txt`).
+
+Downloadable zip (from GitHub Pages branch after publish):  
+https://github.com/Suprakashmajee/AIResume/raw/gh-pages/site.zip
 
 ## Option A — Hostinger File Manager (recommended)
 
-1. hPanel → **Websites** → make sure **airesumedraft.com** has an active website (not only a parked domain).
-2. hPanel → **SSL** → issue/enable free SSL for `airesumedraft.com` and `www` until HTTPS works.
-3. Download: https://github.com/Suprakashmajee/AIResume/raw/gh-pages/site.zip
-4. File Manager → open **public_html** for this domain.
-5. Delete Hostinger placeholder files.
-6. Upload `site.zip` → **Extract** in `public_html`.
-7. Confirm these exist **directly** in `public_html`:
+1. hPanel → **Websites** → open **bill-store.com** (create/activate the website if it is only parked).
+2. hPanel → **SSL** → issue free SSL for `bill-store.com` (+ `www` if used) until HTTPS works.
+3. File Manager → open **public_html** for bill-store.com.
+4. Delete Hostinger placeholder / default files.
+5. Upload `site.zip` → **Extract** in `public_html` (or upload the contents of `dist/`).
+6. Confirm these exist directly in `public_html`:
    - `index.html`
    - `assets/`
    - `ads.txt`
    - `.htaccess`
-8. Verify:
-   - https://airesumedraft.com → title **AiResumeDraft**
-   - https://airesumedraft.com/ads.txt → `google.com, pub-9146006984034713, DIRECT, f08c47fec0942fa0`
+7. Verify:
+   - https://bill-store.com → title **Bill Store**
+   - https://bill-store.com/ads.txt → `google.com, pub-9146006984034713, DIRECT, f08c47fec0942fa0`
+   - https://bill-store.com/generator and `/privacy` load (SPA rewrite)
 
-## Option B — FTP upload
-
-```bash
-npm run build
-# upload contents of dist/ to public_html (include .htaccess)
-```
-
-Or with lftp (fill in your values):
+## Option B — FTP from this repo
 
 ```bash
+export HOSTINGER_FTP_HOST=ftp.bill-store.com   # or the host shown in hPanel → FTP Accounts
+export HOSTINGER_FTP_USER=...
+export HOSTINGER_FTP_PASSWORD=...
+export HOSTINGER_FTP_PATH=public_html           # or the path for this domain
 ./scripts/deploy-ftp.sh
 ```
 
-Environment variables:
+## Option C — GitHub Pages
 
-- `HOSTINGER_FTP_HOST`
-- `HOSTINGER_FTP_USER`
-- `HOSTINGER_FTP_PASSWORD`
-- `HOSTINGER_FTP_PATH` (default `public_html`)
+1. Repo **Settings → Pages → Source: Deploy from a branch** → `gh-pages` / root (or GitHub Actions).
+2. Custom domain: `bill-store.com` (CNAME file is already in the build).
+3. If using Pages instead of Hostinger hosting, point DNS A/AAAA (or ALIAS) to GitHub Pages — this **replaces** the current Hostinger A record.
 
-## Option C — GitHub Pages + DNS
+## AdSense after go-live
 
-1. Repo **Settings → Pages → Source: GitHub Actions**
-2. Re-run workflow **Deploy to GitHub Pages** on `main`
-3. In Hostinger DNS, point apex A/AAAA records to GitHub Pages IPs and `www` CNAME to `Suprakashmajee.github.io`
-4. Set custom domain `airesumedraft.com` in Pages settings and enable HTTPS
-
-Built artifact branch: [`gh-pages`](https://github.com/Suprakashmajee/AIResume/tree/gh-pages)
-
-## Agent deploy status
-
-Automated publish to the custom domain is **blocked**: Hostinger credentials were not provided, and GitHub Pages is not enabled on the repository. The production build remains available on the `gh-pages` branch (`site.zip`).
-
-Once Hostinger website/SSL returns 200 for HTTPS and you can access File Manager, extract `site.zip` into `public_html`, or re-run this agent with Hostinger FTP/hPanel secrets.
-
+1. Confirm `https://bill-store.com/ads.txt` is publicly reachable.
+2. Add the site in AdSense and create ad units.
+3. Replace placeholder `data-ad-slot` values in `src/components/AdSlot.tsx`.
