@@ -1,5 +1,18 @@
 # Deploy Bill Store to bill-store.com
 
+## Current status (agent cannot finish go-live alone)
+
+| Item | Status |
+| --- | --- |
+| App build + `gh-pages` artifact | Ready (`site.zip`) |
+| DNS `bill-store.com` | Points to Hostinger `82.25.107.211` |
+| Live HTTP | `403 Forbidden` (no usable site files / website not serving) |
+| Live HTTPS | TLS failure — no certificate on the Hostinger vhost |
+| GitHub Pages | Not enabled on the repo |
+| Hostinger FTP secrets in Cloud Agent | Not provided (skipped) |
+
+Until Hostinger File Manager upload + SSL **or** GitHub Pages + DNS **or** FTP secrets are available, `https://bill-store.com` cannot show Bill Store.
+
 Domain **bill-store.com** is on Hostinger (DNS A → `82.25.107.211`). The live site currently returns **403** until files are uploaded into the website document root and the Hostinger website + SSL are healthy.
 
 ## Build artifact
