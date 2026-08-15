@@ -10,10 +10,14 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+dist.zip
 *.local
 .env
 .env.*
 !.env.example
+
+# Server secrets
+api/config.php
 
 # Editor directories and files
 .vscode/*
