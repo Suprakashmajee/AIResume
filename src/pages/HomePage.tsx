@@ -75,6 +75,12 @@ export function HomePage() {
               </Link>
             </div>
           </div>
+
+          <div className="hero-visual" aria-hidden="true">
+            <div className="hero-resume-stage">
+              <ResumePreview resume={demoResume} compact />
+            </div>
+          </div>
         </div>
       </section>
 
