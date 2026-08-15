@@ -1,29 +1,98 @@
-import type { AuthUser } from '../types/auth'
+import type { AuthSession, AuthUser } from '../types/auth'
 
-const STORAGE_KEY = 'airesumedraft-auth-v1'
+const STORAGE_KEY = 'airesumedraft-auth-v2'
+const API_BASE = '/api'
+
+type ApiResult<T> = { ok: true } & T | { ok: false; error: string }
+
+async function api<T>(
+  path: string,
+  options: RequestInit & { token?: string | null } = {},
+): Promise<ApiResult<T>> {
+  const headers = new Headers(options.headers || {})
+  if (!headers.has('Content-Type') && options.body) {
+    headers.set('Content-Type', 'application/json')
+  }
+  if (options.token) {
+    headers.set('Authorization', `Bearer ${options.token}`)
+  }
+  try {
+    const res = await fetch(`${API_BASE}${path}`, { ...options, headers })
+    const data = (await res.json()) as ApiResult<T>
+    if (!res.ok || !data.ok) {
+      return { ok: false, error: ('error' in data && data.error) || 'Request failed.' }
+    }
+    return data
+  } catch {
+    return { ok: false, error: 'Could not reach the server. Please try again.' }
+  }
+}
 
 export function getGoogleClientId() {
   return (import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined)?.trim() || ''
 }
 
-export function loadStoredUser(): AuthUser | null {
+export function loadStoredSession(): AuthSession | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return null
-    const parsed = JSON.parse(raw) as AuthUser
-    if (!parsed?.email || !parsed?.id) return null
+    const parsed = JSON.parse(raw) as AuthSession
+    if (!parsed?.token || !parsed?.user?.email || !parsed?.user?.id) return null
     return parsed
   } catch {
     return null
   }
 }
 
-export function saveStoredUser(user: AuthUser | null) {
-  if (!user) {
+export function saveStoredSession(session: AuthSession | null) {
+  if (!session) {
     localStorage.removeItem(STORAGE_KEY)
     return
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(session))
+}
+
+export async function registerAccount(name: string, email: string, password: string) {
+  return api<{ token: string; user: AuthUser }>('/register.php', {
+    method: 'POST',
+    body: JSON.stringify({ name, email, password }),
+  })
+}
+
+export async function loginAccount(email: string, password: string) {
+  return api<{ token: string; user: AuthUser }>('/login.php', {
+    method: 'POST',
+    body: JSON.stringify({ email, password, provider: 'email' }),
+  })
+}
+
+export async function loginGoogleAccount(input: {
+  name: string
+  email: string
+  picture: string
+  googleId: string
+}) {
+  return api<{ token: string; user: AuthUser }>('/login.php', {
+    method: 'POST',
+    body: JSON.stringify({ ...input, provider: 'google' }),
+  })
+}
+
+export async function fetchProfile(token: string) {
+  return api<{ user: AuthUser }>('/profile.php', { method: 'GET', token })
+}
+
+export async function updateProfile(token: string, name: string, picture = '') {
+  return api<{ user: AuthUser }>('/profile.php', {
+    method: 'PATCH',
+    token,
+    body: JSON.stringify({ name, picture }),
+  })
+}
+
+export async function logoutAccount(token: string | null) {
+  if (!token) return
+  await api('/logout.php', { method: 'POST', token })
 }
 
 /** Decode Google ID token payload for display (client-side session only). */

@@ -224,6 +224,27 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="section resources-teaser">
+        <div className="container">
+          <div className="section-head">
+            <p className="eyebrow">Resources</p>
+            <h2>Guides that improve the draft before you apply</h2>
+            <p className="lede">
+              Read practical articles on ATS checklists, bullet formulas, career changes, and
+              tailoring—then open the builder with a clearer plan.
+            </p>
+          </div>
+          <div className="hero-actions">
+            <Link to="/resources" className="btn btn-secondary">
+              Browse resume guides
+            </Link>
+            <Link to="/guide" className="btn btn-ghost">
+              Quick start guide
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="section reviews-section">
         <div className="container">
           <div className="section-head">
