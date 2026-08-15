@@ -827,6 +827,42 @@ main {
   text-underline-offset: 0.15em;
 }
 
+.article-index {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.article-teaser {
+  padding: 1.25rem 0 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.article-teaser h2 {
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  margin-bottom: 0.45rem;
+}
+
+.article-teaser h2 a:hover {
+  color: var(--teal);
+}
+
+.article-teaser p {
+  color: var(--muted);
+  max-width: 46rem;
+}
+
+.text-link,
+.crumb-link {
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.crumb-link {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .auth-nav {
   display: flex;
   align-items: center;

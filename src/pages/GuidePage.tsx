@@ -69,7 +69,8 @@ export function GuidePage() {
 
           <p>
             Need help with the product itself? Email support@airesumedraft.com or visit{' '}
-            <Link to="/contact">Contact</Link>.
+            <Link to="/contact">Contact</Link>. For deeper reading, browse all{' '}
+            <Link to="/resources">resume resources</Link>.
           </p>
         </article>
       </div>

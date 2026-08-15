@@ -3,6 +3,8 @@ import { Layout } from './components/Layout'
 import { AuthProvider } from './context/AuthContext'
 import { ResumeProvider } from './context/ResumeContext'
 import { AboutPage } from './pages/AboutPage'
+import { ArticlePage } from './pages/ArticlePage'
+import { BlogPage } from './pages/BlogPage'
 import { BuilderPage } from './pages/BuilderPage'
 import { ContactPage } from './pages/ContactPage'
 import { ExamplesPage } from './pages/ExamplesPage'
@@ -25,6 +27,8 @@ export default function App() {
               <Route path="examples" element={<ExamplesPage />} />
               <Route path="builder" element={<BuilderPage />} />
               <Route path="guide" element={<GuidePage />} />
+              <Route path="resources" element={<BlogPage />} />
+              <Route path="resources/:slug" element={<ArticlePage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="privacy" element={<PrivacyPage />} />
               <Route path="terms" element={<TermsPage />} />

@@ -26,6 +26,51 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://airesumedraft.com/resources</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/ats-resume-checklist</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/resume-bullet-formulas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/resume-summary-examples</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/first-job-resume-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/career-change-resume</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/common-resume-mistakes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/tailor-resume-job-description</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://airesumedraft.com/resources/resume-vs-linkedin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://airesumedraft.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

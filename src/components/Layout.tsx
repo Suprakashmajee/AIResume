@@ -45,6 +45,9 @@ export function Layout() {
             <NavLink to="/builder" onClick={() => setOpen(false)}>
               Builder
             </NavLink>
+            <NavLink to="/resources" onClick={() => setOpen(false)}>
+              Resources
+            </NavLink>
 
             {user ? (
               <div className="auth-nav">
@@ -106,6 +109,7 @@ export function Layout() {
           </div>
           <div>
             <h4>Support</h4>
+            <NavLink to="/resources">Resources</NavLink>
             <NavLink to="/guide">Resume Guide</NavLink>
             <NavLink to="/contact">Contact</NavLink>
             <p className="footer-email">{SUPPORT_EMAIL}</p>
