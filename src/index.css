@@ -1762,11 +1762,6 @@ textarea:focus {
   .template-card-block {
     grid-template-columns: 1fr;
   }
-
-  .hero-atmosphere::after {
-    opacity: 0.35;
-    right: -10%;
-  }
 }
 
 @media (max-width: 760px) {
