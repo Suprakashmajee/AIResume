@@ -1,257 +1,188 @@
+import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
+import { AdSlot } from '../components/AdSlot'
 import { FAQ } from '../components/FAQ'
-import { ResumePreview } from '../components/ResumePreview'
-import { demoResume, examples, templates } from '../data/content'
-import { useResume } from '../context/ResumeContext'
-
-const features = [
-  {
-    title: 'Powerful resume builder',
-    text: 'Guided sections, live preview, and expert phrasing help you draft a sharp resume without fighting formatting.',
-  },
-  {
-    title: 'ATS-friendly templates',
-    text: 'Layouts built for both machines and humans—clear headings, clean hierarchy, zero decorative noise.',
-  },
-  {
-    title: 'AI writing assistance',
-    text: 'Turn rough notes into polished bullets and summaries tailored to the role you want next.',
-  },
-  {
-    title: 'Customize fonts and colors',
-    text: 'Tune accent color and template style until the page feels like you—professional, not generic.',
-  },
-  {
-    title: 'Free resume examples',
-    text: 'Browse role-ready samples across tech, healthcare, education, marketing, and more.',
-  },
-  {
-    title: 'Export anywhere',
-    text: 'Download TXT instantly or print a polished PDF when you are ready to send.',
-  },
-]
-
-const reviews = [
-  {
-    quote: 'Best free resume builder programs and resources.',
-    source: 'Career Roundup',
-  },
-  {
-    quote: 'Delivers a user-friendly resume builder with professional templates and real-time insights.',
-    source: 'Product Review Desk',
-  },
-  {
-    quote: 'AI writing assistance, customizable templates, and extensive career resources.',
-    source: 'Hiring Tech Digest',
-  },
-]
+import { InvoicePreview } from '../components/InvoicePreview'
+import { useInvoice } from '../context/InvoiceContext'
+import { audiences, faqItems, features, howSteps, siteName, templates } from '../data/content'
+import { calcTotals, createSampleInvoice } from '../utils/invoice'
 
 export function HomePage() {
-  const { loadDemo, loadResume } = useResume()
+  const sample = createSampleInvoice()
+  const sampleTotals = calcTotals(sample)
+  const { loadSample } = useInvoice()
 
   return (
     <>
       <section className="hero">
         <div className="hero-atmosphere" aria-hidden />
-        <div className="hero-grid container">
-          <div className="hero-copy">
-            <p className="brand-lockup">AiResumeDraft</p>
-            <h1>Draft a resume that sounds like the hire they need.</h1>
-            <p className="hero-lede">
-              Build ATS-ready resumes from any device with AI phrasing help, modern templates, and a
-              live preview that stays in sync as you write.
-            </p>
-            <div className="hero-actions">
-              <Link to="/builder" className="btn btn-primary btn-lg">
-                Create My Resume Now
-              </Link>
-              <Link
-                to="/builder"
-                className="btn btn-ghost btn-lg"
-                onClick={() => loadDemo()}
-              >
-                Start From Sample
-              </Link>
-            </div>
+        <div className="hero-visual" aria-hidden>
+          <div className="hero-sheet-wrap">
+            <InvoicePreview invoice={sample} totals={sampleTotals} />
           </div>
         </div>
-      </section>
-
-      <section className="section stats-section">
-        <div className="container stats-row">
-          <div>
-            <strong>38%</strong>
-            <span>more interviews reported by guided drafts</span>
-          </div>
-          <div>
-            <strong>23%</strong>
-            <span>more likely to land an offer with polished copy</span>
-          </div>
-          <div>
-            <strong>5</strong>
-            <span>ATS-friendly templates ready to customize</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="section templates-teaser">
-        <div className="container">
-          <div className="section-head">
-            <p className="eyebrow">Templates</p>
-            <h2>Pick a layout. Make it yours in minutes.</h2>
-            <p className="lede">
-              Start with a professional structure, then tune accent color and content until it fits
-              the role.
-            </p>
-          </div>
-          <div className="template-rail">
-            {templates.map((template) => (
-              <Link
-                key={template.id}
-                to={`/builder?template=${template.id}`}
-                className="template-tile"
-                onClick={() => {
-                  /* template applied on builder mount via query */
-                }}
-              >
-                <div className={`template-thumb thumb-${template.id}`}>
-                  <span className="template-badge">{template.badge}</span>
-                  <ResumePreview
-                    compact
-                    resume={{
-                      ...demoResume,
-                      template: template.id,
-                      fullName: 'Jordan Avery',
-                      headline: template.name,
-                    }}
-                  />
-                </div>
-                <h3>{template.name}</h3>
-                <p>{template.description}</p>
-              </Link>
-            ))}
-          </div>
-          <div className="center-actions">
-            <Link to="/templates" className="btn btn-secondary">
-              See All Resume Templates
+        <div className="container hero-content">
+          <p className="brand-lockup">{siteName}</p>
+          <h1>Free online bill & invoice generator</h1>
+          <p className="hero-lede">
+            Create accurate, professional invoices in minutes. Add your logo, line items, tax, and
+            payment details—then download a clean PDF your clients will trust.
+          </p>
+          <div className="hero-actions">
+            <Link to="/generator" className="btn btn-primary btn-lg">
+              Create your bill now
+            </Link>
+            <Link
+              to="/generator"
+              className="btn btn-ghost btn-lg"
+              onClick={() => loadSample()}
+            >
+              Try a sample invoice
             </Link>
           </div>
+        </div>
+      </section>
+
+      <div className="container">
+        <AdSlot className="ad-home-top" label="Sponsored" />
+      </div>
+
+      <section className="section how-section">
+        <div className="container">
+          <div className="section-head center">
+            <p className="eyebrow">How it works</p>
+            <h2>Make a professional bill in three steps</h2>
+            <p className="section-lede">
+              Bill Store keeps the flow simple: pick a look, enter details, export. Calculations stay
+              accurate so you can focus on getting paid.
+            </p>
+          </div>
+          <ol className="how-grid">
+            {howSteps.map((step) => (
+              <li key={step.step}>
+                <span className="how-num">{step.step}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section className="section features-section">
         <div className="container">
           <div className="section-head">
-            <p className="eyebrow">Why AiResumeDraft</p>
-            <h2>Get hired faster with a feature-packed builder</h2>
-            <p className="lede">
-              Everything you need to move from blank page to interview-ready draft—without the
-              clutter.
+            <p className="eyebrow">Features</p>
+            <h2>Billing made easy in every aspect</h2>
+            <p className="section-lede">
+              Everything you need for freelancers, shops, and agencies—without complicated accounting
+              software.
             </p>
           </div>
-          <div className="feature-grid">
-            {features.map((feature) => (
-              <article key={feature.title} className="feature-item">
-                <h3>{feature.title}</h3>
-                <p>{feature.text}</p>
-              </article>
+          <ul className="feature-grid">
+            {features.map((f) => (
+              <li key={f.title}>
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </li>
             ))}
-          </div>
-          <div className="center-actions">
-            <Link to="/builder" className="btn btn-primary">
-              Build My Resume Now
-            </Link>
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section className="section ai-section">
-        <div className="container ai-panel">
-          <div>
-            <p className="eyebrow">AI Resume Builder</p>
-            <h2>Our free AI resume writer works wherever you do</h2>
-            <p className="lede">
-              Find the right words and automate the first draft. Whether you are on your phone or
-              laptop, AiResumeDraft offers tailored suggestions so you stand out for the role.
-            </p>
-            <ul className="check-list">
-              <li>Role-aware summary and bullet suggestions</li>
-              <li>Mobile-friendly editor with live preview</li>
-              <li>Import momentum with sample resumes and examples</li>
-              <li>Customize fonts, accents, and layout instantly</li>
-            </ul>
-            <Link to="/builder" className="btn btn-primary">
-              Try AI Suggestions
-            </Link>
-          </div>
-          <div className="ai-preview-wrap">
-            <ResumePreview resume={demoResume} compact />
-          </div>
-        </div>
-      </section>
-
-      <section className="section examples-teaser">
+      <section className="section templates-teaser">
         <div className="container">
-          <div className="section-head">
-            <p className="eyebrow">Inspiration</p>
-            <h2>Get inspired by free resume examples</h2>
-            <p className="lede">
-              Explore role-specific drafts written with hiring managers in mind—then load one into
-              the builder and make it yours.
+          <div className="section-head split">
+            <div>
+              <p className="eyebrow">Templates</p>
+              <h2>Layouts that look paid—not pasted into a spreadsheet</h2>
+              <p className="section-lede">
+                Switch designs anytime. Your invoice data stays put while the presentation changes.
+              </p>
+            </div>
+            <Link to="/templates" className="btn btn-ghost">
+              Browse all templates
+            </Link>
+          </div>
+          <ul className="template-strip">
+            {templates.map((t) => (
+              <li key={t.id} style={{ '--swatch': t.accent } as CSSProperties}>
+                <span className="swatch" aria-hidden />
+                <strong>{t.name}</strong>
+                <p>{t.blurb}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section audience-section">
+        <div className="container">
+          <div className="section-head center">
+            <p className="eyebrow">Who it’s for</p>
+            <h2>Built for every everyday billing need</h2>
+            <p className="section-lede">
+              Whether you invoice once a month or every project milestone, Bill Store keeps the
+              paperwork light.
             </p>
           </div>
-          <div className="example-grid">
-            {examples.slice(0, 6).map((example) => (
-              <article key={example.id} className="example-item">
-                <p className="eyebrow">{example.category}</p>
-                <h3>{example.title}</h3>
-                <p>{example.description}</p>
-                <Link
-                  to="/builder"
-                  className="text-link"
-                  onClick={() => loadResume(example.data)}
-                >
-                  Use this example →
-                </Link>
-              </article>
+          <ul className="audience-grid">
+            {audiences.map((a) => (
+              <li key={a.title}>
+                <h3>{a.title}</h3>
+                <p>{a.text}</p>
+              </li>
             ))}
-          </div>
-          <div className="center-actions">
-            <Link to="/examples" className="btn btn-secondary">
-              See All Resume Examples
+          </ul>
+          <div className="mid-cta">
+            <Link to="/generator" className="btn btn-primary btn-lg">
+              Get started for free
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section reviews-section">
-        <div className="container">
-          <div className="section-head">
-            <p className="eyebrow">Reviews</p>
-            <h2>What people say about AiResumeDraft</h2>
-          </div>
-          <div className="review-grid">
-            {reviews.map((review) => (
-              <blockquote key={review.source} className="review-item">
-                <p>“{review.quote}”</p>
-                <cite>{review.source}</cite>
-              </blockquote>
-            ))}
-          </div>
+      <div className="container">
+        <AdSlot className="ad-home-mid" label="Sponsored" />
+      </div>
+
+      <section className="section content-section">
+        <div className="container prose-block">
+          <h2>Why use an online invoice generator?</h2>
+          <p>
+            Professional invoices set clear expectations: what was delivered, how much is owed, and
+            how to pay. Spreadsheets and Word docs often drift out of format, hide calculation errors,
+            or look inconsistent from one client to the next. An online bill generator like Bill Store
+            standardizes your layout, calculates totals automatically, and lets you export a PDF you
+            can send the same day.
+          </p>
+          <p>
+            Bill Store is designed to be Google AdSense-friendly and useful: substantial guides on
+            this site explain invoicing basics, privacy, and terms of use. The generator itself runs
+            in your browser—no forced signup—so you can create a bill quickly on desktop or mobile.
+          </p>
+          <h3>Tips for invoices that get paid faster</h3>
+          <ul>
+            <li>Use a unique invoice number and clear due date on every bill.</li>
+            <li>Include payment details (bank, PayPal, or link) in plain language.</li>
+            <li>Itemize work with quantities and rates so clients can reconcile quickly.</li>
+            <li>Add tax and discounts explicitly instead of burying them in a single line.</li>
+            <li>Keep branding consistent—logo and accent color help clients recognize you.</li>
+          </ul>
         </div>
       </section>
 
-      <section className="section cta-section">
-        <div className="container cta-panel">
-          <h2>Let’s land your next role together</h2>
-          <p>Start with a template, sharpen with AI, and export a resume you are proud to send.</p>
-          <Link to="/builder" className="btn btn-primary btn-lg">
-            Start Your Resume Now
+      <FAQ items={faqItems} />
+
+      <section className="section final-cta">
+        <div className="container final-cta-inner">
+          <h2>Ready to send your next bill?</h2>
+          <p>Open the free generator, fill in a few fields, and download a polished invoice PDF.</p>
+          <Link to="/generator" className="btn btn-primary btn-lg">
+            Open invoice generator
           </Link>
         </div>
       </section>
-
-      <FAQ />
     </>
   )
 }

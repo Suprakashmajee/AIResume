@@ -1,59 +1,60 @@
-import { Link, useSearchParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { ResumePreview } from '../components/ResumePreview'
-import { demoResume, templates } from '../data/content'
-import { useResume } from '../context/ResumeContext'
-import type { TemplateId } from '../types/resume'
+import { Link } from 'react-router-dom'
+import { PageIntro } from '../components/FAQ'
+import { AdSlot } from '../components/AdSlot'
+import { templates } from '../data/content'
+import { useInvoice } from '../context/InvoiceContext'
+import type { InvoiceTemplateId } from '../types/invoice'
 
 export function TemplatesPage() {
-  const { setTemplate } = useResume()
-  const [params] = useSearchParams()
-
-  useEffect(() => {
-    const id = params.get('template') as TemplateId | null
-    if (id && templates.some((t) => t.id === id)) setTemplate(id)
-  }, [params, setTemplate])
+  const { updateInvoice } = useInvoice()
 
   return (
-    <section className="section page-top">
+    <div className="page templates-page">
+      <PageIntro
+        eyebrow="Templates"
+        title="Invoice templates for every kind of bill"
+        lede="Pick a layout that matches your brand. Each template keeps line items, tax, and payment details readable—so clients know exactly what to pay."
+      />
       <div className="container">
-        <div className="section-head">
-          <p className="eyebrow">Resume templates</p>
-          <h1>Choose a template that clears ATS and looks sharp</h1>
-          <p className="lede">
-            Five professional layouts—modern, classic, sidebar, minimal, and executive—ready for
-            your content and accent color.
-          </p>
-        </div>
-        <div className="template-gallery">
-          {templates.map((template) => (
-            <article key={template.id} className="template-card-block">
-              <div className={`template-thumb thumb-${template.id}`}>
-                <span className="template-badge">{template.badge}</span>
-                <ResumePreview
-                  compact
-                  resume={{
-                    ...demoResume,
-                    template: template.id,
-                    headline: template.name,
-                  }}
-                />
+        <AdSlot className="ad-page" label="Sponsored" />
+        <ul className="template-catalog">
+          {templates.map((t) => (
+            <li key={t.id}>
+              <div className="template-card-visual" style={{ borderColor: t.accent }}>
+                <span className="template-bar" style={{ background: t.accent }} />
+                <span className="template-lines" aria-hidden>
+                  <i />
+                  <i />
+                  <i />
+                </span>
               </div>
-              <div className="template-card-copy">
-                <h2>{template.name}</h2>
-                <p>{template.description}</p>
-                <Link
-                  to="/builder"
-                  className="btn btn-primary"
-                  onClick={() => setTemplate(template.id)}
-                >
-                  Use this template
-                </Link>
-              </div>
-            </article>
+              <h2>{t.name}</h2>
+              <p>{t.blurb}</p>
+              <Link
+                to="/generator"
+                className="btn btn-primary"
+                onClick={() =>
+                  updateInvoice({
+                    templateId: t.id as InvoiceTemplateId,
+                    accentColor: t.accent,
+                  })
+                }
+              >
+                Use {t.name}
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
+        <section className="prose-block">
+          <h2>How to choose an invoice template</h2>
+          <p>
+            Classic and Minimal work well for consultants and professional services. Modern and
+            Coastal suit creative studios and product businesses. Bold Ledger emphasizes the total
+            due—helpful when payment follow-ups matter. You can change templates after filling your
+            bill; Bill Store never forces you to start over.
+          </p>
+        </section>
       </div>
-    </section>
+    </div>
   )
 }
