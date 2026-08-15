@@ -59,7 +59,8 @@ export function HomePage() {
             <h1>Draft a resume that sounds like the hire they need.</h1>
             <p className="hero-lede">
               Build ATS-ready resumes from any device with AI phrasing help, modern templates, and a
-              live preview that stays in sync as you write.
+              live preview that stays in sync as you write—trusted by job seekers in the USA, India,
+              Europe, and beyond.
             </p>
             <div className="hero-actions">
               <Link to="/builder" className="btn btn-primary btn-lg">
@@ -230,8 +231,8 @@ export function HomePage() {
             <p className="eyebrow">Resources</p>
             <h2>Guides that improve the draft before you apply</h2>
             <p className="lede">
-              Read practical articles on ATS checklists, bullet formulas, career changes, and
-              tailoring—then open the builder with a clearer plan.
+              Read practical articles on ATS checklists, US resumes, India formats, European CVs,
+              career changes, and tailoring—then open the builder with a clearer plan.
             </p>
           </div>
           <div className="hero-actions">

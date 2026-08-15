@@ -301,6 +301,125 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    slug: 'us-resume-format',
+    title: 'US resume format: what American recruiters expect',
+    description:
+      'Learn the standard US resume structure, length, and wording so your application fits hiring norms across the United States.',
+    category: 'USA',
+    readMinutes: 7,
+    updated: 'August 15, 2026',
+    sections: [
+      {
+        heading: 'Keep it concise and achievement-led',
+        paragraphs: [
+          'In the United States, most early and mid-career resumes fit on one page. Two pages are acceptable for longer careers when every section earns its space. Recruiters expect clear section headings, strong action verbs, and quantified results rather than long objective statements.',
+        ],
+      },
+      {
+        heading: 'Standard US sections',
+        paragraphs: ['Use a familiar order so both ATS tools and humans can scan quickly.'],
+        bullets: [
+          'Contact information with city/state, phone, email, and LinkedIn if relevant',
+          'Professional summary tailored to the role',
+          'Experience with company, title, dates, and impact bullets',
+          'Education with degree and school',
+          'Skills aligned to the job description',
+        ],
+      },
+      {
+        heading: 'What to avoid on US resumes',
+        paragraphs: [
+          'Do not include a photo, date of birth, marital status, or national ID. Those details are uncommon in US private-sector hiring and can create bias concerns. Focus on work evidence instead.',
+        ],
+      },
+      {
+        heading: 'Build a US-ready draft in AiResumeDraft',
+        paragraphs: [
+          'Choose an ATS-friendly template, write impact bullets, and export a clean PDF. Then tailor the summary and top bullets for each US posting before you apply.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'india-resume-format',
+    title: 'India resume format: practical tips for Indian job applications',
+    description:
+      'A clear guide to resume structure for India—including ATS-heavy hiring, education emphasis, and how to present projects and internships.',
+    category: 'India',
+    readMinutes: 7,
+    updated: 'August 15, 2026',
+    sections: [
+      {
+        heading: 'What Indian recruiters often scan first',
+        paragraphs: [
+          'Many Indian employers and campuses use ATS filters and short screening windows. Lead with a targeted summary, then highlight education, internships, projects, and tools that match the role. For fresher and early-career candidates, projects can carry as much weight as short work history.',
+        ],
+      },
+      {
+        heading: 'Education and credentials',
+        paragraphs: [
+          'Include degree, college or university, graduation year, and notable coursework or certifications when relevant. If you have a strong percentage/CGPA and the posting asks for it, you may include it; otherwise prioritize skills and project outcomes.',
+        ],
+      },
+      {
+        heading: 'Projects, internships, and skills',
+        paragraphs: ['Make technical and delivery proof easy to find.'],
+        bullets: [
+          'Describe projects with problem, tools, and result',
+          'List internships with responsibilities and measurable contribution',
+          'Separate core skills from tools (for example, Java vs Eclipse)',
+          'Keep contact details professional and current',
+        ],
+      },
+      {
+        heading: 'Formatting that travels well',
+        paragraphs: [
+          'Use a clean single-column or lightly structured template, standard section titles, and selectable text. AiResumeDraft helps you draft once, then adjust wording for each Indian job description without rebuilding layout from scratch.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'european-cv-vs-resume',
+    title: 'European CV vs resume: how to adapt for EU and UK roles',
+    description:
+      'Understand common European CV expectations versus US-style resumes, including length, personal details, and country differences.',
+    category: 'Europe',
+    readMinutes: 8,
+    updated: 'August 15, 2026',
+    sections: [
+      {
+        heading: 'CV and resume are related but not identical',
+        paragraphs: [
+          'In much of Europe, employers ask for a CV. That document is often similar to a US resume but may run longer, include a short profile, and follow local norms for photo or personal details. The UK often prefers a concise CV without a photo, while some continental markets still accept or expect a professional headshot—always check the employer and country.',
+        ],
+      },
+      {
+        heading: 'Common European expectations',
+        paragraphs: ['Adapt intentionally instead of copying a US one-pager blindly.'],
+        bullets: [
+          'Use clear chronology with months and years',
+          'Explain gaps briefly when needed',
+          'Highlight languages with proficiency levels',
+          'Include EU work authorization only when relevant and appropriate',
+          'Prefer plain formatting that parses well in HR systems',
+        ],
+      },
+      {
+        heading: 'Country nuance matters',
+        paragraphs: [
+          'Germany and some neighboring markets may expect more detail and structured education history. Ireland and the UK often favor achievement-led, compact CVs. When applying across borders, keep a master draft in AiResumeDraft and produce a tailored version for each country and posting.',
+        ],
+      },
+      {
+        heading: 'Practical approach',
+        paragraphs: [
+          'Start with a clean template, write strong bullets, then adjust length and personal-detail sections to the job ad. Export PDF for email applications and keep a text-friendly version for online forms.',
+        ],
+      },
+    ],
+  },
 ]
 
 export function getArticle(slug: string) {

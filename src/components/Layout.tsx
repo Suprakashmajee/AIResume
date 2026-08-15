@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { Seo } from './Seo'
 
 const SUPPORT_EMAIL = 'support@airesumedraft.com'
 
@@ -18,6 +19,7 @@ export function Layout() {
 
   return (
     <div className="site">
+      <Seo />
       <header className="nav">
         <div className="nav-inner">
           <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
