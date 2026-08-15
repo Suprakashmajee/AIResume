@@ -4,6 +4,13 @@ export interface AuthUser {
   email: string
   picture: string
   provider: 'google' | 'email'
+  createdAt?: string | null
+  lastLoginAt?: string | null
+}
+
+export interface AuthSession {
+  token: string
+  user: AuthUser
 }
 
 export interface GoogleCredentialResponse {

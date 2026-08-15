@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { Seo } from './Seo'
 
 const SUPPORT_EMAIL = 'support@airesumedraft.com'
 
@@ -10,13 +11,15 @@ export function Layout() {
   const navigate = useNavigate()
 
   function handleLogout() {
-    logout()
-    setOpen(false)
-    navigate('/')
+    void logout().then(() => {
+      setOpen(false)
+      navigate('/')
+    })
   }
 
   return (
     <div className="site">
+      <Seo />
       <header className="nav">
         <div className="nav-inner">
           <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
@@ -45,10 +48,13 @@ export function Layout() {
             <NavLink to="/builder" onClick={() => setOpen(false)}>
               Builder
             </NavLink>
+            <NavLink to="/resources" onClick={() => setOpen(false)}>
+              Resources
+            </NavLink>
 
             {user ? (
               <div className="auth-nav">
-                <div className="auth-user">
+                <NavLink to="/profile" className="auth-user" onClick={() => setOpen(false)}>
                   {user.picture ? (
                     <img src={user.picture} alt="" className="auth-avatar" referrerPolicy="no-referrer" />
                   ) : (
@@ -57,13 +63,16 @@ export function Layout() {
                     </span>
                   )}
                   <span className="auth-user-name">{user.name}</span>
-                </div>
+                </NavLink>
+                <NavLink to="/profile" className="btn btn-profile" onClick={() => setOpen(false)}>
+                  Profile
+                </NavLink>
                 <button type="button" className="btn btn-ghost auth-logout" onClick={handleLogout}>
                   Log out
                 </button>
               </div>
             ) : (
-              <NavLink to="/login" className="btn btn-secondary auth-login" onClick={() => setOpen(false)}>
+              <NavLink to="/login" className="btn btn-login auth-login" onClick={() => setOpen(false)}>
                 Log in
               </NavLink>
             )}
@@ -97,18 +106,28 @@ export function Layout() {
             <NavLink to="/templates">Templates</NavLink>
             <NavLink to="/examples">Resume Examples</NavLink>
             {user ? (
-              <button type="button" className="footer-text-btn" onClick={handleLogout}>
-                Log out
-              </button>
+              <>
+                <NavLink to="/profile">Profile</NavLink>
+                <button type="button" className="footer-text-btn" onClick={handleLogout}>
+                  Log out
+                </button>
+              </>
             ) : (
               <NavLink to="/login">Log in</NavLink>
             )}
           </div>
           <div>
             <h4>Support</h4>
-            <a href="#faq">FAQ</a>
+            <NavLink to="/resources">Resources</NavLink>
+            <NavLink to="/guide">Resume Guide</NavLink>
             <NavLink to="/contact">Contact</NavLink>
             <p className="footer-email">{SUPPORT_EMAIL}</p>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/privacy">Privacy Policy</NavLink>
+            <NavLink to="/terms">Terms of Service</NavLink>
           </div>
         </div>
         <div className="container footer-bottom">
@@ -116,6 +135,11 @@ export function Layout() {
             © {new Date().getFullYear()} AiResumeDraft. Support:{' '}
             <span className="footer-email-inline">{SUPPORT_EMAIL}</span>
           </span>
+          <nav className="footer-legal-links" aria-label="Legal">
+            <NavLink to="/privacy">Privacy</NavLink>
+            <NavLink to="/terms">Terms</NavLink>
+            <NavLink to="/about">About</NavLink>
+          </nav>
         </div>
       </footer>
     </div>
