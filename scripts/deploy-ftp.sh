@@ -26,4 +26,4 @@ mirror -R --delete --verbose dist/ .
 bye
 EOF
 
-echo "Done. Check https://airesumedraft.com and https://airesumedraft.com/ads.txt"
+echo "Done. Check https://bill-store.com and https://bill-store.com/ads.txt"

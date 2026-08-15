@@ -1,38 +1,55 @@
 # Deploy Bill Store to bill-store.com
 
-## Build
+Domain **bill-store.com** is on Hostinger (DNS A → `82.25.107.211`). The live site currently returns **403** until files are uploaded into the website document root and the Hostinger website + SSL are healthy.
+
+## Build artifact
 
 ```bash
-npm install
+npm ci
 npm run build
+cp dist/index.html dist/404.html
 ```
 
-Upload the contents of `dist/` (including `ads.txt`, `.htaccess` if present, and `CNAME` when using GitHub Pages) to your host document root.
+Upload **everything inside `dist/`** into Hostinger `public_html` for this domain (include `.htaccess` and `ads.txt`).
 
-## Checklist
+Downloadable zip (from GitHub Pages branch after publish):  
+https://github.com/Suprakashmajee/AIResume/raw/gh-pages/site.zip
 
-1. Point DNS for `bill-store.com` (and `www` if used) to your host
-2. Enable SSL / HTTPS
-3. Confirm:
-   - `https://bill-store.com` loads **Bill Store**
-   - `https://bill-store.com/ads.txt` returns:
-     `google.com, pub-9146006984034713, DIRECT, f08c47fec0942fa0`
-   - `/privacy` and `/terms` are reachable (SPA fallback / `.htaccess`)
-4. In Google AdSense, add the site and replace placeholder ad slot IDs in `AdSlot` when you create real units
+## Option A — Hostinger File Manager (recommended)
 
-## Option — FTP
+1. hPanel → **Websites** → open **bill-store.com** (create/activate the website if it is only parked).
+2. hPanel → **SSL** → issue free SSL for `bill-store.com` (+ `www` if used) until HTTPS works.
+3. File Manager → open **public_html** for bill-store.com.
+4. Delete Hostinger placeholder / default files.
+5. Upload `site.zip` → **Extract** in `public_html` (or upload the contents of `dist/`).
+6. Confirm these exist directly in `public_html`:
+   - `index.html`
+   - `assets/`
+   - `ads.txt`
+   - `.htaccess`
+7. Verify:
+   - https://bill-store.com → title **Bill Store**
+   - https://bill-store.com/ads.txt → `google.com, pub-9146006984034713, DIRECT, f08c47fec0942fa0`
+   - https://bill-store.com/generator and `/privacy` load (SPA rewrite)
+
+## Option B — FTP from this repo
 
 ```bash
+export HOSTINGER_FTP_HOST=ftp.bill-store.com   # or the host shown in hPanel → FTP Accounts
+export HOSTINGER_FTP_USER=...
+export HOSTINGER_FTP_PASSWORD=...
+export HOSTINGER_FTP_PATH=public_html           # or the path for this domain
 ./scripts/deploy-ftp.sh
 ```
 
-Environment variables:
+## Option C — GitHub Pages
 
-- `HOSTINGER_FTP_HOST`
-- `HOSTINGER_FTP_USER`
-- `HOSTINGER_FTP_PASSWORD`
-- `HOSTINGER_FTP_PATH` (default `public_html`)
+1. Repo **Settings → Pages → Source: Deploy from a branch** → `gh-pages` / root (or GitHub Actions).
+2. Custom domain: `bill-store.com` (CNAME file is already in the build).
+3. If using Pages instead of Hostinger hosting, point DNS A/AAAA (or ALIAS) to GitHub Pages — this **replaces** the current Hostinger A record.
 
-## GitHub Pages
+## AdSense after go-live
 
-`public/CNAME` is set to `bill-store.com`. Enable Pages and configure the custom domain + HTTPS in repository settings.
+1. Confirm `https://bill-store.com/ads.txt` is publicly reachable.
+2. Add the site in AdSense and create ad units.
+3. Replace placeholder `data-ad-slot` values in `src/components/AdSlot.tsx`.
