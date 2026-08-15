@@ -9,8 +9,9 @@ import {
 } from 'react'
 import { demoResume, emptyResume, createId } from '../data/content'
 import type { EducationItem, ExperienceItem, ResumeData, TemplateId } from '../types/resume'
+import { useAuth } from './AuthContext'
 
-const STORAGE_KEY = 'airesumedraft-v1'
+const BASE_STORAGE_KEY = 'airesumedraft-v1'
 
 interface ResumeContextValue {
   resume: ResumeData
@@ -32,9 +33,14 @@ interface ResumeContextValue {
 
 const ResumeContext = createContext<ResumeContextValue | null>(null)
 
-function loadStored(): ResumeData | null {
+function storageKeyFor(email?: string | null) {
+  if (!email) return BASE_STORAGE_KEY
+  return `${BASE_STORAGE_KEY}:${email.toLowerCase()}`
+}
+
+function loadStored(key: string): ResumeData | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(key)
     if (!raw) return null
     return JSON.parse(raw) as ResumeData
   } catch {
@@ -43,11 +49,27 @@ function loadStored(): ResumeData | null {
 }
 
 export function ResumeProvider({ children }: { children: ReactNode }) {
-  const [resume, setResumeState] = useState<ResumeData>(() => loadStored() ?? emptyResume())
+  const { user } = useAuth()
+  const storageKey = storageKeyFor(user?.email)
+  const [resume, setResumeState] = useState<ResumeData>(() => loadStored(BASE_STORAGE_KEY) ?? emptyResume())
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(resume))
-  }, [resume])
+    const stored = loadStored(storageKey)
+    if (stored) {
+      setResumeState(stored)
+      return
+    }
+    if (user?.email) {
+      const guest = loadStored(BASE_STORAGE_KEY)
+      setResumeState(guest ?? emptyResume())
+      return
+    }
+    setResumeState(emptyResume())
+  }, [storageKey, user?.email])
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(resume))
+  }, [resume, storageKey])
 
   const setResume = useCallback((next: ResumeData) => {
     setResumeState(next)

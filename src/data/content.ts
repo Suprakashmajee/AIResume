@@ -512,4 +512,12 @@ export const faqs = [
     q: 'Is my information secure?',
     a: 'Your resume data is stored locally in your browser for this session. We do not sell personal data. Clear your browser storage if you are on a shared device.',
   },
+  {
+    q: 'How do I contact support?',
+    a: 'Visit the Contact page on this website to see our support email: support@airesumedraft.com. You can copy the address from there without opening Outlook or another mail app.',
+  },
+  {
+    q: 'How do I log in or log out?',
+    a: 'Click Log in in the header. You can sign in with your name and email right away, or use Continue with Google when Google sign-in is configured. When you are signed in, your name appears in the header with a Log out button.',
+  },
 ]
